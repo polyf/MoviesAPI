@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/movies
+    username: postgres
+    password: poly3011
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      format_sql: true
+    show-sql: true
+
+server:
+  contextPath: /
+  port: 8080
+
+
+
+
+
+
