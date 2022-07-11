@@ -33,7 +33,7 @@ public class Movie {
     @NotBlank(message = "title may not be null")
     private String title;
     @NotBlank(message = "date may not be empty")
-    @Size(min = 8, max = 8, message = "date format must be dd/mm/aaaa")
+    @Size(min = 10, max = 10, message = "date format must be dd/mm/aaaa")
     private String date;
     @Min(value = 1)
     private int durationTime;

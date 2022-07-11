@@ -18,7 +18,7 @@ public class MovieService {
 
     public Movie createMovie(Movie movie) {
 
-        return movieRepository.save(movie);
+        return validateMovie(movie);
     }
 
     public String deleteMovie(Long id) {
@@ -39,14 +39,14 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
-    private ResponseEntity<Movie> validateMovie(Movie movie) {
+    private Movie validateMovie(Movie movie) {
         List<Movie> movies = getAll();
         for (int i = 0; i < movies.size(); i++) {
-            if (movies.get(i).getTitle() == movie.getTitle()) {
-                return new ResponseEntity<Movie>(HttpStatus.CONFLICT);
+            if (movies.get(i).getTitle().equals(movie.getTitle())) {
+                throw new RuntimeException();
             }
         }
-return null;
+        return movieRepository.save(movie);
     }
 }
 
