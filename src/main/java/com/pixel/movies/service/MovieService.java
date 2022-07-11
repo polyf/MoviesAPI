@@ -3,6 +3,9 @@ package com.pixel.movies.service;
 import com.pixel.movies.model.Movie;
 import com.pixel.movies.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,7 @@ public class MovieService {
     private MovieRepository movieRepository;
 
     public Movie createMovie(Movie movie) {
+
         return movieRepository.save(movie);
     }
 
@@ -33,6 +37,16 @@ public class MovieService {
     public Movie updateMovieById(Movie movie, Long id) {
         movie.setId(id);
         return movieRepository.save(movie);
+    }
+
+    private ResponseEntity<Movie> validateMovie(Movie movie) {
+        List<Movie> movies = getAll();
+        for (int i = 0; i < movies.size(); i++) {
+            if (movies.get(i).getTitle() == movie.getTitle()) {
+                return new ResponseEntity<Movie>(HttpStatus.CONFLICT);
+            }
+        }
+return null;
     }
 }
 

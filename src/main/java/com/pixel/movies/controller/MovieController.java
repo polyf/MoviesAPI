@@ -3,9 +3,9 @@ package com.pixel.movies.controller;
 import com.pixel.movies.model.Movie;
 import com.pixel.movies.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,7 +16,7 @@ public class MovieController {
     private MovieService movieService;
 
     @PostMapping
-    public Movie createMovie(@RequestBody Movie movie) {
+    public Movie createMovie(@RequestBody @Valid Movie movie) {
         return movieService.createMovie(movie);
     }
 
@@ -31,7 +31,7 @@ public class MovieController {
     }
 
     @GetMapping
-    public List<Movie> getAll(){
+    public List<Movie> getAll() {
         return movieService.getAll();
     }
 
