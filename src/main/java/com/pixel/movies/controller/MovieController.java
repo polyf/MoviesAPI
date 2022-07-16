@@ -32,8 +32,8 @@ public class MovieController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Movie>>getAll() {
-        return movieService.getAll();
+    public ResponseEntity<List<Movie>>getAll(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
+        return movieService.getAll(page, pageSize);
     }
 
     @PutMapping(value = "/{id}")
