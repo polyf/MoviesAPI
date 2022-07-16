@@ -5,6 +5,7 @@ import com.pixel.movies.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -45,11 +46,11 @@ public class MovieService {
 
     }
 
-    public ResponseEntity<List<Movie>> getAll(int page, int pageSize) {
+    public ResponseEntity<List<Movie>> getAll(int page, int pageSize, String sort) {
         if (movieRepository.count() <= 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            PageRequest pageable = PageRequest.of(page, pageSize);
+            PageRequest pageable = PageRequest.of(page, pageSize, Sort.by(sort));
             return new ResponseEntity<>(movieRepository.findAll(pageable).getContent(), HttpStatus.OK);
         }
 
